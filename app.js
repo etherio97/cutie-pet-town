@@ -126,29 +126,13 @@ function rotateWheel() {
   spinTime += 2;
   var potential = currentWinner();
   if (spinTimeTotal - spinTime < 300) {
-    if (spinTimeTotal - spinTime < 180) {
-      var degree = currentDegree();
-      if (degree + 20 < off50[0] || (degree > off50[0] && degree < off50[1])) {
+    if (potential === '50%') {
+      spinTimeTotal = spinTime + 180;
+    } else if (potential === '40%') {
+      if (count < 10) {
         spinTimeTotal = spinTime + 180;
-      } else if (
-        degree + 20 < off40[0] ||
-        (degree > off40[0] && degree < off40[1])
-      ) {
-        if (count < 10) {
-          spinTimeTotal = spinTime + 180;
-        } else {
-          hasWinner = true;
-        }
-      }
-    } else {
-      if (potential === '50%') {
-        spinTimeTotal = spinTime + 180;
-      } else if (potential === '40%') {
-        if (count < 10) {
-          spinTimeTotal = spinTime + 180;
-        } else {
-          hasWinner = true;
-        }
+      } else {
+        hasWinner = true;
       }
     }
   }
