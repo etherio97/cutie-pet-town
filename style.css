@@ -1,0 +1,45 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  background-image: url(bg.jpeg);
+}
+
+#logo {
+  position: absolute;
+  width: 200px;
+  height: auto;
+  top: 10px;
+  z-index: -1;
+}
+
+#canvas {
+  transform: scale(1.5);
+  z-index: 1;
+}
+
+#dog {
+  position: absolute;
+  width: 200px;
+  height: auto;
+  bottom: 20px;
+  right: 20px;
+  z-index: 2;
+}
+
+#cat {
+  position: absolute;
+  width: 200px;
+  height: auto;
+  bottom: 40px;
+  left: 20px;
+  z-index: 2;
+}
