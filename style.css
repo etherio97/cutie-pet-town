@@ -18,6 +18,7 @@ body {
   width: 200px;
   height: auto;
   top: 10px;
+  left: 40px;
   z-index: -1;
 }
 

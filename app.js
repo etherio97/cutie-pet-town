@@ -42,10 +42,6 @@ var isSpinning = false;
 var count = 0;
 var hasWinner = false;
 
-// Degrees
-var off50 = [510.00232240993256, 539.836002881799];
-var off40 = [1050.4195493749994, 1079.4195493749994];
-
 if (localStorage.getItem('__count')) {
   count = parseInt(localStorage.getItem('__count'));
 }
