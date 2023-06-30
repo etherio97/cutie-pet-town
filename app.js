@@ -106,19 +106,22 @@ function spin() {
   if (isSpinning) return;
   count++;
   isSpinning = true;
-  // spinAngleStart = Math.random() * 10 + 10;
-  spinAngleStart = 10;
+  spinAngleStart = Math.random() * 10 + 10;
+  // spinAngleStart = 10;
   spinTime = 0;
   spinTimeTotal = Math.random() * 200 + 500;
   // spinTimeTotal = 800;
   spinTimeout && clearTimeout(spinTimeout);
   rotateWheel();
+  document.getElementById('logo').classList.add('shake');
+  document.getElementById('cat').classList.add('fade-in-out', 'float-up-down');
+  document.getElementById('dog').classList.add('fade-in-out', 'float-up-down');
 }
 
 function rotateWheel() {
   spinTime += 2;
   var potential = currentWinner();
-  if (spinTimeTotal - spinTime < 400) {
+  if (spinTimeTotal - spinTime < 300) {
     if (potential === '50%') {
       spinTimeTotal = spinTime + 240;
     } else if (potential === '40%') {
@@ -148,7 +151,6 @@ function currentWinner() {
 }
 
 function stopRotateWheel() {
-  isSpinning = false;
   clearTimeout(spinTimeout);
   ctx.save();
   ctx.font = 'bold 30px Helvetica, Arial';
@@ -159,6 +161,16 @@ function stopRotateWheel() {
     count = 0;
   }
   localStorage.setItem('__count', count);
+  setTimeout(() => {
+    isSpinning = false;
+    document.getElementById('logo').classList.remove('shake');
+    document
+      .getElementById('cat')
+      .classList.remove('fade-in-out', 'float-up-down');
+    document
+      .getElementById('dog')
+      .classList.remove('fade-in-out', 'float-up-down');
+  }, 800);
 }
 
 function easeOut(t, b, c, d) {
