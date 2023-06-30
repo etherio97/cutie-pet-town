@@ -42,6 +42,10 @@ var isSpinning = false;
 var count = 0;
 var hasWinner = false;
 
+// Degrees
+var off50 = [510.00232240993256, 539.836002881799];
+var off40 = [1050.4195493749994, 1079.4195493749994];
+
 if (localStorage.getItem('__count')) {
   count = parseInt(localStorage.getItem('__count'));
 }
@@ -122,13 +126,29 @@ function rotateWheel() {
   spinTime += 2;
   var potential = currentWinner();
   if (spinTimeTotal - spinTime < 300) {
-    if (potential === '50%') {
-      spinTimeTotal = spinTime + 240;
-    } else if (potential === '40%') {
-      if (count < 10) {
-        spinTimeTotal = spinTime + 240;
-      } else {
-        hasWinner = true;
+    if (spinTimeTotal - spinTime < 180) {
+      var degree = currentDegree();
+      if (degree + 20 < off50[0] || (degree > off50[0] && degree < off50[1])) {
+        spinTimeTotal = spinTime + 180;
+      } else if (
+        degree + 20 < off40[0] ||
+        (degree > off40[0] && degree < off40[1])
+      ) {
+        if (count < 10) {
+          spinTimeTotal = spinTime + 180;
+        } else {
+          hasWinner = true;
+        }
+      }
+    } else {
+      if (potential === '50%') {
+        spinTimeTotal = spinTime + 180;
+      } else if (potential === '40%') {
+        if (count < 10) {
+          spinTimeTotal = spinTime + 180;
+        } else {
+          hasWinner = true;
+        }
       }
     }
   }
@@ -143,8 +163,12 @@ function rotateWheel() {
   spinTimeout = setTimeout('rotateWheel()', 30);
 }
 
+function currentDegree() {
+  return (startAngle * 180) / Math.PI + 90;
+}
+
 function currentWinner() {
-  var degrees = (startAngle * 180) / Math.PI + 90;
+  var degrees = currentDegree();
   var arcd = (arc * 180) / Math.PI;
   var index = Math.floor((360 - (degrees % 360)) / arcd);
   return users[index];
